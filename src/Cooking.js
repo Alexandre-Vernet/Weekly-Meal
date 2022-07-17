@@ -9,6 +9,6 @@ export class Cooking {
         const randomNumber = Math.floor(Math.random() * cookingLength);
 
         // Get cooking with random number
-        return cooking[randomNumber].title;
+        return cooking[randomNumber];
     }
 }
