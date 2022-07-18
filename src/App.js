@@ -8,6 +8,7 @@ export class App extends React.Component {
         dailyCooking: '',
         weeklyCooking: [],
         drawerOpen: false,
+        cookingDetails: ''
     };
 
     componentDidMount() {
@@ -42,7 +43,12 @@ export class App extends React.Component {
                     autoHeight
                     affixHeader
                     affixHorizontalScrollbar
-                    onClick={ () => this.setState({ drawerOpen: true }) }
+                    onRowClick={ (rowData) => {
+                        this.setState({
+                            drawerOpen: true,
+                            cookingDetails: rowData
+                        })
+                    } }
                 >
 
                     <Table.Column width={ 300 } fixed resizable>
@@ -58,7 +64,7 @@ export class App extends React.Component {
 
                 <Drawer open={ this.state.drawerOpen } onClose={ () => this.setState({ drawerOpen: false }) }>
                     <Drawer.Header>
-                        <Drawer.Title>Drawer Title</Drawer.Title>
+                        <Drawer.Title>{ this.state.cookingDetails.title }</Drawer.Title>
                         <Drawer.Actions>
                             <Button onClick={ () => this.setState({ drawerOpen: false }) }>Cancel</Button>
                             <Button onClick={ () => this.setState({ drawerOpen: false }) } appearance="primary">
@@ -67,7 +73,7 @@ export class App extends React.Component {
                         </Drawer.Actions>
                     </Drawer.Header>
                     <Drawer.Body>
-                        { this.state.dailyCooking.description }
+                        { this.state.cookingDetails.description }
                     </Drawer.Body>
                 </Drawer>
             </div>
