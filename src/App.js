@@ -5,18 +5,19 @@ import { Table } from 'rsuite';
 
 export class App extends React.Component {
     state = {
-        cooking: Cooking.getCookingForOneMeal(),
-        weeklyCooking: Cooking.getCookingForWeek(),
+        dailyCooking: '',
+        weeklyCooking: [],
         drawerOpen: false,
     };
 
     componentDidMount() {
+        this.getCooking();
         this.getWeekMenu();
     }
 
     getCooking() {
         this.setState({
-            cooking: Cooking.getCookingForOneMeal()
+            dailyCooking: Cooking.getCookingForOneMeal()
         });
     }
 
@@ -30,7 +31,7 @@ export class App extends React.Component {
         return (
             <div>
                 <h1>Repas du jour :</h1>
-                <span>{ this.state.cooking.title }</span>
+                <span>{ this.state.dailyCooking.title }</span>
                 <br/>
                 <Button appearance="primary" onClick={ () => this.getCooking() }>Nouvelle recette</Button>
 
@@ -66,7 +67,7 @@ export class App extends React.Component {
                         </Drawer.Actions>
                     </Drawer.Header>
                     <Drawer.Body>
-                        { this.state.cooking.description }
+                        { this.state.dailyCooking.description }
                     </Drawer.Body>
                 </Drawer>
             </div>
