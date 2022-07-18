@@ -44,11 +44,11 @@ export class App extends React.Component {
                     onClick={ () => this.setState({ drawerOpen: true }) }
                 >
 
-                    <Table.Column width={ 600 } fixed resizable>
+                    <Table.Column width={ 300 } fixed resizable>
                         <Table.HeaderCell>Jour</Table.HeaderCell>
-                        <Table.Cell dataKey="description"/>
+                        <Table.Cell dataKey="day"/>
                     </Table.Column>
-                    <Table.Column width={ 500 } fixed resizable>
+                    <Table.Column width={ 600 } fixed resizable>
                         <Table.HeaderCell>Plat</Table.HeaderCell>
                         <Table.Cell dataKey="title"/>
                     </Table.Column>
