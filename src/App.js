@@ -1,7 +1,7 @@
 import React from "react";
 import { Meal } from "./Meal";
 import { Button, Drawer, Table } from 'rsuite';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
 
 export class App extends React.Component {
@@ -9,7 +9,7 @@ export class App extends React.Component {
         dailyMeal: '',
         weeklyMeal: [],
         drawerOpen: false,
-        cookingDetails: ''
+        mealDetails: ''
     };
 
     async componentDidMount() {
@@ -22,7 +22,11 @@ export class App extends React.Component {
         // Get meal from firestore
         const querySnapshot = await getDocs(collection(db, "meal"));
         querySnapshot.forEach((doc) => {
-            meal.push(doc.data());
+            // Push meal and id
+            meal.push({
+                ...doc.data(),
+                id: doc.id
+            });
         });
 
         // Filter meal (remove duplicate, sort randomly)
@@ -31,6 +35,14 @@ export class App extends React.Component {
         this.setState({
             weeklyMeal: filteredMeal
         });
+    }
+
+    updateMeal(meal) {
+
+    }
+
+    async deleteMeal(meal) {
+        await deleteDoc(doc(db, "meal", meal.id));
     }
 
     render() {
@@ -46,12 +58,6 @@ export class App extends React.Component {
                     autoHeight
                     affixHeader
                     affixHorizontalScrollbar
-                    onRowClick={ (rowData) => {
-                        this.setState({
-                            drawerOpen: true,
-                            cookingDetails: rowData
-                        })
-                    } }
                 >
 
                     <Table.Column width={ 300 } fixed resizable>
@@ -62,12 +68,37 @@ export class App extends React.Component {
                         <Table.HeaderCell>Plat</Table.HeaderCell>
                         <Table.Cell dataKey="title"/>
                     </Table.Column>
+
+                    <Table.Column width={ 300 } fixed="right">
+                        <Table.HeaderCell>Action</Table.HeaderCell>
+
+                        <Table.Cell>
+                            { meal => {
+                                return (
+                                    <div>
+                                        {/*Edit meal*/ }
+                                        <Button color="orange" onClick={ () =>
+                                            this.setState({
+                                                drawerOpen: true,
+                                                mealDetails: meal
+                                            })
+                                        } appearance="primary">Edit</Button>
+
+                                        {/*Delete meal*/ }
+                                        <Button color="red" appearance="primary"
+                                                onClick={ () => this.deleteMeal(meal) }> Remove </Button>
+                                    </div>
+                                );
+                            } }
+                        </Table.Cell>
+                    </Table.Column>
+
                 </Table>
 
 
                 <Drawer open={ this.state.drawerOpen } onClose={ () => this.setState({ drawerOpen: false }) }>
                     <Drawer.Header>
-                        <Drawer.Title>{ this.state.cookingDetails.title }</Drawer.Title>
+                        <Drawer.Title>{ this.state.mealDetails.title }</Drawer.Title>
                         <Drawer.Actions>
                             <Button onClick={ () => this.setState({ drawerOpen: false }) }>Cancel</Button>
                             <Button onClick={ () => this.setState({ drawerOpen: false }) } appearance="primary">
@@ -76,7 +107,7 @@ export class App extends React.Component {
                         </Drawer.Actions>
                     </Drawer.Header>
                     <Drawer.Body>
-                        { this.state.cookingDetails.description }
+                        { this.state.mealDetails.description }
                     </Drawer.Body>
                 </Drawer>
             </div>
