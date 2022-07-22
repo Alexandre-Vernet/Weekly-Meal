@@ -1,53 +1,46 @@
 import React from "react";
 import { Meal } from "./Meal";
-import { Button, Drawer } from 'rsuite';
-import { Table } from 'rsuite';
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { Button, Drawer, Table } from 'rsuite';
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 export class App extends React.Component {
     state = {
-        dailyCooking: '',
-        weeklyCooking: [],
+        dailyMeal: '',
+        weeklyMeal: [],
         drawerOpen: false,
         cookingDetails: ''
     };
 
     async componentDidMount() {
-        await this.getCooking();
-        this.getWeekMenu();
+        await this.getWeekMenu();
     }
 
-    async getCooking() {
-        this.setState({
-            dailyCooking: Meal.getMealForOneDay()
-        });
+    async getWeekMenu() {
+        const meal = [];
 
-        const q = query(collection(db, "meal"));
-
-        const querySnapshot = await getDocs(q);
+        // Get meal from firestore
+        const querySnapshot = await getDocs(collection(db, "meal"));
         querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            meal.push(doc.data());
         });
-    }
 
-    getWeekMenu() {
+        // Filter meal (remove duplicate, sort randomly)
+        const filteredMeal = Meal.getMealForWeek(meal);
+
         this.setState({
-            weeklyCooking: Meal.getMealForWeek()
-        })
+            weeklyMeal: filteredMeal
+        });
     }
 
     render() {
         return (
             <div>
-                <h1>Repas du jour :</h1>
-                <span>{ this.state.dailyCooking.title }</span>
-                <br/>
-                <Button appearance="primary" onClick={ () => this.getCooking() }>Nouvelle recette</Button>
+                <h1>Repas de la semaine</h1>
+                <Button appearance="primary" onClick={ () => this.getWeekMenu() }>Nouveau menu</Button>
 
                 <Table
-                    data={ this.state.weeklyCooking }
+                    data={ this.state.weeklyMeal }
                     bordered
                     cellBordered
                     autoHeight

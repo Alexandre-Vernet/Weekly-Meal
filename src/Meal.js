@@ -1,26 +1,14 @@
-import cooking from './cooking.json';
-
 export class Meal {
-    static getMealForOneDay() {
-        // Get cooking length
-        const cookingLength = cooking.length;
 
-        // Get random number
-        const randomNumber = Math.floor(Math.random() * cookingLength);
-
-        // Get cooking with random number
-        return cooking[randomNumber];
-    }
-
-    static getMealForWeek() {
+    static getMealForWeek(meal) {
         const weekDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-        // Get cooking with 7 meals without duplicates and add week days for each element
-        return cooking.sort(() => Math.random() - 0.5).slice(0, 7).map((cooking, index) => {
+        // Get meal for 7 days without duplicates and add week days for each element
+        return meal.sort(() => Math.random() - 0.5).slice(0, 7).map((meal, index) => {
             return {
-                ...cooking,
-                description: cooking.description,
-                title: cooking.title,
+                ...meal,
+                description: meal.description,
+                title: meal.title,
                 day: weekDays[index]
             };
         });
