@@ -1,7 +1,7 @@
 import cooking from './cooking.json';
 
-export class Cooking {
-    static getCookingForOneMeal() {
+export class Meal {
+    static getMealForOneDay() {
         // Get cooking length
         const cookingLength = cooking.length;
 
@@ -12,7 +12,7 @@ export class Cooking {
         return cooking[randomNumber];
     }
 
-    static getCookingForWeek() {
+    static getMealForWeek() {
         const weekDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
         // Get cooking with 7 meals without duplicates and add week days for each element

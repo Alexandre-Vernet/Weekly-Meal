@@ -1,5 +1,5 @@
 import React from "react";
-import { Cooking } from "./Cooking";
+import { Meal } from "./Meal";
 import { Button, Drawer } from 'rsuite';
 import { Table } from 'rsuite';
 
@@ -18,13 +18,13 @@ export class App extends React.Component {
 
     getCooking() {
         this.setState({
-            dailyCooking: Cooking.getCookingForOneMeal()
+            dailyCooking: Meal.getMealForOneDay()
         });
     }
 
     getWeekMenu() {
         this.setState({
-            weeklyCooking: Cooking.getCookingForWeek()
+            weeklyCooking: Meal.getMealForWeek()
         })
     }
 
