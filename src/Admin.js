@@ -123,12 +123,12 @@ export class Admin extends React.Component {
                     affixHeader
                     affixHorizontalScrollbar
                 >
-                    <Table.Column width={ 600 } fixed resizable>
+                    <Table.Column width={ 500 }>
                         <Table.HeaderCell>Plat</Table.HeaderCell>
                         <Table.Cell dataKey="title"/>
                     </Table.Column>
 
-                    <Table.Column width={ 300 } fixed="right">
+                    <Table.Column width={ 300 }>
                         <Table.HeaderCell>Action</Table.HeaderCell>
 
                         {/*Action*/ }
