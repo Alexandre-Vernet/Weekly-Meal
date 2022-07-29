@@ -66,41 +66,27 @@ export class Meals extends React.Component {
 
                 <Table
                     data={ this.state.weeklyMeal }
+                    wordWrap="break-word"
                     bordered
                     cellBordered
                     autoHeight
                     affixHeader
                     affixHorizontalScrollbar
+                    onRowClick={(meal) => {
+                        this.setState({
+                            drawerOpen: true,
+                            editMeal: meal
+                        })
+                    }}
                 >
 
-                    <Table.Column width={ 100 }>
+                    <Table.Column width={ 150 }>
                         <Table.HeaderCell>Jour</Table.HeaderCell>
                         <Table.Cell dataKey="day"/>
                     </Table.Column>
                     <Table.Column width={ 500 }>
                         <Table.HeaderCell>Plat</Table.HeaderCell>
                         <Table.Cell dataKey="title"/>
-                    </Table.Column>
-
-                    <Table.Column width={ 100 }>
-                        <Table.HeaderCell>Action</Table.HeaderCell>
-
-                        {/*Action*/ }
-                        <Table.Cell>
-                            { meal => {
-                                return (
-                                    <div>
-                                        {/*Edit meal*/ }
-                                        <Button color="green" onClick={ () =>
-                                            this.setState({
-                                                drawerOpen: true,
-                                                editMeal: meal
-                                            })
-                                        } appearance="primary">Détails</Button>
-                                    </div>
-                                );
-                            } }
-                        </Table.Cell>
                     </Table.Column>
                 </Table>
 
