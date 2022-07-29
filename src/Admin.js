@@ -128,7 +128,7 @@ export class Admin extends React.Component {
                         <Table.Cell dataKey="title"/>
                     </Table.Column>
 
-                    <Table.Column width={ 300 }>
+                    <Table.Column width={ 200 }>
                         <Table.HeaderCell>Action</Table.HeaderCell>
 
                         {/*Action*/ }

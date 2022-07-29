@@ -62,7 +62,7 @@ export class Meals extends React.Component {
         return (
             <div>
                 <h1>Repas de la semaine</h1>
-                <Button appearance="primary" onClick={ () => this.getWeekMenu() }>Actualiser le menu</Button>
+                <Button appearance="primary" onClick={ () => this.getWeekMenu() }>Actualiser</Button>
 
                 <Table
                     data={ this.state.weeklyMeal }
@@ -82,7 +82,7 @@ export class Meals extends React.Component {
                         <Table.Cell dataKey="title"/>
                     </Table.Column>
 
-                    <Table.Column width={ 300 }>
+                    <Table.Column width={ 100 }>
                         <Table.HeaderCell>Action</Table.HeaderCell>
 
                         {/*Action*/ }
