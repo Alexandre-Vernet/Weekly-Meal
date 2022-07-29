@@ -25,7 +25,7 @@ export class Admin extends React.Component {
     async addMeal() {
         const newMeal = this.state.editMeal;
 
-        addDoc(collection(db, "meal"), {
+        addDoc(collection(db, "meals"), {
             title: newMeal.title,
             description: newMeal.description
         }).then((docRef) => {
@@ -37,6 +37,15 @@ export class Admin extends React.Component {
                 description: newMeal.description,
             });
 
+            // Clear state editMeal
+            this.setState({
+                editMeal: {
+                    id: '',
+                    title: '',
+                    description: ''
+                }
+            });
+
             // Close drawer
             this.setState({ drawerOpen: false });
         })
@@ -46,7 +55,7 @@ export class Admin extends React.Component {
         const editMeal = this.state.editMeal;
 
         // Update meal in firestore
-        const mealRef = doc(db, "meal", editMeal.id);
+        const mealRef = doc(db, "meals", editMeal.id);
         await updateDoc(mealRef, {
             title: editMeal.title,
             description: editMeal.description
@@ -60,32 +69,41 @@ export class Admin extends React.Component {
             }
         });
 
+        // Clear state editMeal
+        this.setState({
+            editMeal: {
+                id: '',
+                title: '',
+                description: ''
+            }
+        });
+
         // Close drawer
         this.setState({ drawerOpen: false });
     }
 
     async deleteMeal(meal) {
-        deleteDoc(doc(db, "meal", meal.id)).then(() => {
+        deleteDoc(doc(db, "meals", meal.id)).then(() => {
             // Remove meal from state
             this.state.meals.splice(this.state.meals.indexOf(meal), 1);
         });
     }
 
     async getWeekMenu() {
-        const meal = [];
+        const meals = [];
 
-        // Get meal from firestore
-        const querySnapshot = await getDocs(collection(db, "meal"));
+        // Get meals from firestore
+        const querySnapshot = await getDocs(collection(db, "meals"));
         querySnapshot.forEach((doc) => {
-            // Push meal and id
-            meal.push({
+            // Push meals and id
+            meals.push({
                 ...doc.data(),
                 id: doc.id
             });
         });
 
         this.setState({
-            meals: meal
+            meals: meals
         });
     }
 

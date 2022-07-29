@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import { Button, Drawer, Table } from "rsuite";
 
-export class Meal extends React.Component {
+export class Meals extends React.Component {
 
     state = {
         weeklyMeal: [{
@@ -24,35 +24,35 @@ export class Meal extends React.Component {
     }
 
     async getWeekMenu() {
-        const meal = [];
+        const meals = [];
 
-        // Get meal from firestore
-        const querySnapshot = await getDocs(collection(db, "meal"));
+        // Get meals from firestore
+        const querySnapshot = await getDocs(collection(db, "meals"));
         querySnapshot.forEach((doc) => {
-            // Push meal and id
-            meal.push({
+            // Push meals and id
+            meals.push({
                 ...doc.data(),
                 id: doc.id
             });
         });
 
-        // Filter meal (remove duplicate, sort randomly)
-        const filteredMeal = this.getMealForWeek(meal);
+        // Filter meals (remove duplicate, sort randomly)
+        const filteredMeal = this.getMealForWeek(meals);
 
         this.setState({
             weeklyMeal: filteredMeal
         });
     }
 
-    getMealForWeek(meal) {
+    getMealForWeek(meals) {
         const weekDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-        // Get meal for 7 days without duplicates and add week days for each element
-        return meal.sort(() => Math.random() - 0.5).slice(0, 7).map((meal, index) => {
+        // Get meals for 7 days without duplicates and add week days for each element
+        return meals.sort(() => Math.random() - 0.5).slice(0, 7).map((meals, index) => {
             return {
-                ...meal,
-                description: meal.description,
-                title: meal.title,
+                ...meals,
+                description: meals.description,
+                title: meals.title,
                 day: weekDays[index]
             };
         });
@@ -62,7 +62,7 @@ export class Meal extends React.Component {
         return (
             <div>
                 <h1>Repas de la semaine</h1>
-                <Button appearance="primary" onClick={ () => this.getWeekMenu() }>Nouveau menu</Button>
+                <Button appearance="primary" onClick={ () => this.getWeekMenu() }>Actualiser le menu</Button>
 
                 <Table
                     data={ this.state.weeklyMeal }
