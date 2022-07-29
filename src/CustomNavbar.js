@@ -1,23 +1,25 @@
 import React from "react";
-import { Navbar, Nav } from 'rsuite';
+import { Nav, Navbar } from 'rsuite';
 import { Link } from "react-router-dom";
 
 export class CustomNavbar extends React.Component {
 
     render() {
         return (
-            <div>
-                <Navbar>
-                    <Nav>
+            <Navbar>
+                <Nav>
+                    <Nav.Item>
                         <Link to="/">
-                            Accueil
+                            <h4>Accueil</h4>
                         </Link>
+                    </Nav.Item>
+                    <Nav.Item>
                         <Link to="/admin">
-                            Admin
+                            <h4>Admin</h4>
                         </Link>
-                    </Nav>
-                </Navbar>
-            </div>
+                    </Nav.Item>
+                </Nav>
+            </Navbar>
         )
     }
 }
