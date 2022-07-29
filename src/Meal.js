@@ -2,7 +2,6 @@ import React from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import { Button, Drawer, Table } from "rsuite";
-import { Link } from "react-router-dom";
 
 export class Meal extends React.Component {
 
@@ -64,7 +63,6 @@ export class Meal extends React.Component {
             <div>
                 <h1>Repas de la semaine</h1>
                 <Button appearance="primary" onClick={ () => this.getWeekMenu() }>Nouveau menu</Button>
-                <Link to="/admin">Admin</Link>
 
                 <Table
                     data={ this.state.weeklyMeal }
