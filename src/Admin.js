@@ -15,11 +15,16 @@ export class Admin extends React.Component {
             id: '',
             title: '',
             description: ''
-        }
+        },
+        screenWidth: this.getWidthScreen()
     }
 
     async componentDidMount() {
         await this.getWeekMenu();
+    }
+
+    getWidthScreen() {
+        return window.innerWidth;
     }
 
     async addMeal() {
@@ -154,7 +159,9 @@ export class Admin extends React.Component {
                     </Table.Column>
                 </Table>
 
-                <Drawer open={ this.state.drawerOpen } onClose={ () => this.setState({ drawerOpen: false }) }>
+                <Drawer open={ this.state.drawerOpen }
+                        placement={ this.state.screenWidth > 600 ? 'right' : 'bottom' }
+                        onClose={ () => this.setState({ drawerOpen: false }) }>
                     <Drawer.Header>
                         <Drawer.Title>{ this.state.editMeal.title }</Drawer.Title>
                         <Drawer.Actions>
