@@ -1,6 +1,11 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Weekly-Meal",
+  "short_name": "Weekly-Meal",
+  "theme_color": "#2589f5",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "icons/windows11/SmallTile.scale-100.png",
@@ -450,9 +455,5 @@
       "src": "icons/ios/1024.png",
       "sizes": "1024x1024"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }
