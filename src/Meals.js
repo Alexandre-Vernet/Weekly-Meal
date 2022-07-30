@@ -89,7 +89,7 @@ export class Meals extends React.Component {
                         <Table.HeaderCell>Jour</Table.HeaderCell>
                         <Table.Cell dataKey="day"/>
                     </Table.Column>
-                    <Table.Column width={ 500 }>
+                    <Table.Column width={ 400 }>
                         <Table.HeaderCell>Plat</Table.HeaderCell>
                         <Table.Cell dataKey="title"/>
                     </Table.Column>
