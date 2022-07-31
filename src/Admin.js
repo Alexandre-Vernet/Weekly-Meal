@@ -122,18 +122,19 @@ export class Admin extends React.Component {
 
                 <Table
                     data={ this.state.meals }
+                    wordWrap="break-word"
                     bordered
                     cellBordered
                     autoHeight
                     affixHeader
                     affixHorizontalScrollbar
                 >
-                    <Table.Column width={ 500 }>
+                    <Table.Column width={ this.state.screenWidth > 600 ? 500 : 150 }>
                         <Table.HeaderCell>Plat</Table.HeaderCell>
                         <Table.Cell dataKey="title"/>
                     </Table.Column>
 
-                    <Table.Column width={ 200 }>
+                    <Table.Column width={ this.state.screenWidth > 600 ? 200 : 200 }>
                         <Table.HeaderCell>Action</Table.HeaderCell>
 
                         {/*Action*/ }
