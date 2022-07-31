@@ -2,6 +2,8 @@ import React from "react";
 import { Button, Drawer, Form, Input, Table } from "rsuite";
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "./firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export class Admin extends React.Component {
     state = {
@@ -129,12 +131,12 @@ export class Admin extends React.Component {
                     affixHeader
                     affixHorizontalScrollbar
                 >
-                    <Table.Column width={ this.state.screenWidth > 600 ? 500 : 150 }>
+                    <Table.Column width={ this.state.screenWidth > 600 ? 500 : 200 }>
                         <Table.HeaderCell>Plat</Table.HeaderCell>
                         <Table.Cell dataKey="title"/>
                     </Table.Column>
 
-                    <Table.Column width={ this.state.screenWidth > 600 ? 200 : 200 }>
+                    <Table.Column width={ this.state.screenWidth > 600 ? 150 : 100 }>
                         <Table.HeaderCell>Action</Table.HeaderCell>
 
                         {/*Action*/ }
@@ -148,11 +150,16 @@ export class Admin extends React.Component {
                                                 drawerOpen: true,
                                                 editMeal: meal
                                             })
-                                        } appearance="primary">Modifier</Button>
+                                        } appearance="primary">
+                                            <FontAwesomeIcon icon={ faPenToSquare }/>
+                                        </Button>
 
                                         {/*Delete meal*/ }
                                         <Button color="red" appearance="primary"
-                                                onClick={ () => this.deleteMeal(meal) }> Supprimer </Button>
+                                                onClick={ () => this.deleteMeal(meal) }>
+                                            <FontAwesomeIcon icon={ faTrash }/>
+
+                                        </Button>
                                     </div>
                                 );
                             } }
