@@ -2,7 +2,7 @@
   "name": "Weekly-Meal",
   "short_name": "Weekly-Meal",
   "theme_color": "#2589f5",
-  "background_color": "#fee45a",
+  "background_color": "#FFFFFF",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
